@@ -8,11 +8,6 @@ from flask import render_template
 from bson.objectid import ObjectId
 
 
-# This code originally from https://github.com/lepture/flask-oauthlib/blob/master/example/github.py
-# Edited by P. Conrad for SPIS 2016 to add getting Client Id and Secret from
-# environment variables, so that this will work on Heroku.
-# Edited by S. Adams for Designing Software for the Web to add comments and remove flash messaging
-
 app = Flask(__name__)
 
 app.debug = False #Change this to False for production
@@ -26,7 +21,7 @@ connection_string = os.environ["MONGO_CONNECTION_STRING"]
 db_name = os.environ["MONGO_DBNAME"]
 client = pymongo.MongoClient(connection_string)
 db = client[db_name]
-collection = db['Posts']
+collection = db['Items']
 
 
     
@@ -61,10 +56,11 @@ def home():
 def login():   
     return github.authorize(callback=url_for('authorized', _external=True, _scheme='http')) #callback URL must match the pre-configured callback URL
 
+
 @app.route('/logout')
 def logout():
     session.clear()
-    return render_template('message.html', message='You were logged out')
+    return render_template('homeLoggedIn.html', message='Logged out successfully!')
 
 @app.route('/login/authorized')
 def authorized():
@@ -83,7 +79,8 @@ def authorized():
             session.clear()
             print(inst)
             message='Unable to login, please try again.  '
-    return render_template('message.html', message=message)
+    return render_template('homeLoggedIn.html', message=message)
+    #Change the render
     
 @app.route('/googleb4c3aeedcc2dd103.html')
 def render_google_verification():
