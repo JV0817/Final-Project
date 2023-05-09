@@ -60,7 +60,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return render_template('homeLoggedIn.html', message='Logged out successfully!')
+    return render_template('homeMessage.html', message='Logged out successfully!')
 
 @app.route('/login/authorized')
 def authorized():
@@ -79,7 +79,7 @@ def authorized():
             session.clear()
             print(inst)
             message='Unable to login, please try again.  '
-    return render_template('homeLoggedIn.html', message=message)
+    return render_template('homeMessage.html', message=message)
     #Change the render
     
 @app.route('/googleb4c3aeedcc2dd103.html')
