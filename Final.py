@@ -91,5 +91,13 @@ def render_google_verification():
 def get_github_oauth_token():
     return session['github_token']
 
+@app.route('/order')
+def render_order():
+    return render_template('order.html')
+    
+@app.route('/cart')
+def render_cart():
+    return render_template('cart.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
